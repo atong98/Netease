@@ -6,31 +6,57 @@ import Classify from '../pages/Classify/Classify.vue'
 import Goods from '../pages/Goods/Goods.vue'
 import Shopping from '../pages/Shopping/Shopping.vue'
 import Personal from '../pages/Personal/Personal.vue'
+import Search from '../pages/Search/Search.vue'
+import Login from '../pages/Login/Login.vue'
 
 Vue.use(VueRouter)
 
 export default new VueRouter({
-  mode:'history',
+  mode:'history', //没有#
   routes:[
     {
+      path:'/',
+      redirect:'/home'
+    },
+    {
       path:'/home',
-      component:Home
+      component:Home,
+      meta:{
+        showFooter:true
+      }
     },
     {
       path:'/classify',
-      component:Classify
+      component:Classify,
+      meta:{
+        showFooter:true
+      }         
     },
     {
       path:'/goods',
-      component:Goods
+      component:Goods,
+      meta:{
+        showFooter:true
+      }
     },
     {
       path:'/shopping',
-      component:Shopping
+      component:Shopping,
+      meta:{
+        showFooter:true
+      }
     },
     {
       path:'/personal',
       component:Personal
+    },
+    {
+      path:'/search',
+      component:Search
+    },
+    {
+      path:'/login/:id',
+      component:Login
     }
   ]
 })

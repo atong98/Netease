@@ -27,15 +27,17 @@
       </ul>
     </div>
     <!-- 购物车 -->
-    <div>
-      <div>
-        <img src="http://yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/noCart-d6193bd6e4.png" alt="">
-      </div>
-      <div>
-        <a>去添加点什么吧</a>
-      </div>
-      <div>
-        <span>登录</span>
+    <div class="cartContainer">
+      <div class="cart">
+        <div class="cartContainer_top">
+          <img src="http://yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/noCart-d6193bd6e4.png" alt="">
+        </div>
+        <div class="cartContainer_middle">
+          <a>去添加点什么吧</a>
+        </div>
+        <div class="cartContainer_bottom" @click="$router.push('/personal')">
+          <span>登录</span>
+        </div>
       </div>
     </div>
   </div>
@@ -54,7 +56,7 @@
     .shopping_headerContainer
       width 100%
       height rem(87.98)
-      background pink
+      // background pink
       .shopping_left
         // position relative
         width 100%
@@ -95,6 +97,35 @@
           span
             font-size rem(24)
     /* 购物车 */
-    .
+    .cartContainer
+      width 100%
+      height 100%
+      background #f4f4f4
+      .cart
+        display flex
+        flex-direction column
+        align-items center
+        justify-content space-around
+        .cartContainer_top
+          margin-top rem(310)
+          img 
+            width rem(248)
+            height rem(248)
+        .cartContainer_middle
+          a 
+            font-size rem(28)
+            margin-bottom rem(50)
+        .cartContainer_bottom
+          width rem(480)
+          height rem(92)
+          background #b4282d
+          display flex
+          align-items center
+          justify-content space-around
+          margin-bottom rem(290)
+          margin-top rem(55)
+          span 
+            font-size rem(30)
+            color white
  
-</style>
+// </style>

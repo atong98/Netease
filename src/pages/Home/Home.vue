@@ -6,15 +6,15 @@
         <a class="logo">
           <img src="http:////yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/indexLogo-a90bdaae6b.png" alt="">
         </a>
-        <div class="search">
+        <div class="search" @click="$router.push('/search')">
           <i class="iconfont icon-sousuo"></i> 
           <span class="placeholder">搜索商品</span>
         </div>
-        <button class="login">登录</button>
+        <button class="login" @click="$router.push('/personal')">登录</button>
       </div>
       <!-- 头部导航 -->
       <div class="headernav">
-        <div class="headernav_left">
+        <div class="headernav_left" ref="left">
           <ul class="nav_items">
             <li class="nav_item">
               <span>推荐</span>
@@ -87,45 +87,9 @@
     <div class="categoryContainer">
       <div class="category">
         <ul class="category_all">
-          <li class="category_item">
-            <img src="https://yanxuan.nosdn.127.net/5243a7191dd4c86b3b28859089273aa8.gif" alt="">
-            <span>新品首发</span>
-          </li>
-          <li class="category_item">
-            <img src="https://yanxuan.nosdn.127.net/5243a7191dd4c86b3b28859089273aa8.gif" alt="">
-            <span>新品首发</span>
-          </li>
-          <li class="category_item">
-            <img src="https://yanxuan.nosdn.127.net/5243a7191dd4c86b3b28859089273aa8.gif" alt="">
-            <span>新品首发</span>
-          </li>
-          <li class="category_item">
-            <img src="https://yanxuan.nosdn.127.net/5243a7191dd4c86b3b28859089273aa8.gif" alt="">
-            <span>新品首发</span>
-          </li>
-          <li class="category_item">
-            <img src="https://yanxuan.nosdn.127.net/5243a7191dd4c86b3b28859089273aa8.gif" alt="">
-            <span>新品首发</span>
-          </li>
-          <li class="category_item">
-            <img src="https://yanxuan.nosdn.127.net/5243a7191dd4c86b3b28859089273aa8.gif" alt="">
-            <span>新品首发</span>
-          </li>
-          <li class="category_item">
-            <img src="https://yanxuan.nosdn.127.net/5243a7191dd4c86b3b28859089273aa8.gif" alt="">
-            <span>新品首发</span>
-          </li>
-          <li class="category_item">
-            <img src="https://yanxuan.nosdn.127.net/5243a7191dd4c86b3b28859089273aa8.gif" alt="">
-            <span>新品首发</span>
-          </li>
-          <li class="category_item">
-            <img src="https://yanxuan.nosdn.127.net/5243a7191dd4c86b3b28859089273aa8.gif" alt="">
-            <span>新品首发</span>
-          </li>
-          <li class="category_item">
-            <img src="https://yanxuan.nosdn.127.net/5243a7191dd4c86b3b28859089273aa8.gif" alt="">
-            <span>新品首发</span>
+          <li class="category_item" v-for="(newgood, index) in newgoods.kingKongList" :key="index">
+            <img :src="newgood.picUrl" alt="">
+            <span>{{newgood.text}}</span>
           </li>
         </ul>
       </div>
@@ -251,14 +215,21 @@
   import Swiper from 'swiper'
   import 'swiper/dist/css/swiper.css'
   import BScroll from 'better-scroll'
+  import {mapState} from 'vuex'
   export default {
+    computed:{
+      ...mapState({
+        newgoods:state =>state.newgoods.newgoods
+      })
+    },
+
     mounted(){
-      // this.$nextTick(
-        new BScroll('.headernav_left',{
+      this.$nextTick(
+        new BScroll(this.$refs.left,{
           scrollX:true,
           scrollY:false
         })
-      // )
+      ),
       new Swiper ('.swiper-container', {
         loop: true, // 循环模式选项
     
@@ -266,7 +237,9 @@
         pagination: {
           el: '.swiper-pagination',
         }
-      })   
+      })
+      /* 首页新品首发 */
+      this.$store.dispatch('getNewGoods')   
     }
   }
 </script>
@@ -370,12 +343,13 @@
               padding rem(0) rem(28)
               text-align center
               line-height rem(60)
+              &.active
+                border-bottom rem(1) solid red
               span 
                 color #333
                 display inline-block
                 height rem(55)
-              &:first-child
-                border-bottom rem(1) solid red
+              
         .headernav_right
           position absolute
           right rem(0)
